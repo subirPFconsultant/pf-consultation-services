@@ -1,768 +1,277 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PF Expert Consultancy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    :root {
-      --bg:        #080e1a;
-      --surface:   #0f1829;
-      --card:      #131e30;
-      --card2:     #172038;
-      --border:    rgba(255,255,255,0.07);
-      --border2:   rgba(255,255,255,0.12);
-      --accent:    #3b82f6;
-      --accent2:   #1d4ed8;
-      --gold:      #f59e0b;
-      --gold2:     #d97706;
-      --green:     #10b981;
-      --red:       #ef4444;
-      --text:      #f1f5f9;
-      --text2:     #94a3b8;
-      --text3:     #475569;
-      --glow:      rgba(59,130,246,0.18);
-      --glow-gold: rgba(245,158,11,0.15);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      font-family: 'Sora', sans-serif;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      color: var(--text);
-    }
-
-    .app {
-      width: 100%;
-      max-width: 480px;
-      min-height: 100vh;
-      background: var(--surface);
-      position: relative;
-      padding-bottom: 90px;
-      overflow: hidden;
-    }
-
-    /* ══════════════════════════════════════
-       HEADER
-    ══════════════════════════════════════ */
-    header {
-      position: relative;
-      padding: 44px 24px 56px;
-      text-align: center;
-      overflow: hidden;
-      background: var(--surface);
-    }
-
-    /* Mesh gradient blobs */
-    header::before {
-      content: '';
-      position: absolute;
-      top: -40px; left: -60px;
-      width: 260px; height: 260px;
-      background: radial-gradient(circle, rgba(59,130,246,0.22) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    header::after {
-      content: '';
-      position: absolute;
-      top: -20px; right: -50px;
-      width: 220px; height: 220px;
-      background: radial-gradient(circle, rgba(245,158,11,0.14) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    /* Diagonal accent line */
-    .header-line {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), var(--gold), transparent);
-      opacity: 0.6;
-    }
-
-    .logo-wrap {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 18px;
-      z-index: 2;
-    }
-
-    .logo-glow {
-      position: absolute;
-      inset: -12px;
-      border-radius: 28px;
-      background: radial-gradient(circle, rgba(59,130,246,0.3) 0%, transparent 70%);
-      animation: pulse 3s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.5; transform: scale(1); }
-      50%       { opacity: 1;   transform: scale(1.06); }
-    }
-
-    .logo-img {
-      width: 96px; height: 96px;
-      border-radius: 22px;
-      object-fit: contain;
-      background: #fff;
-      padding: 8px;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 12px 40px rgba(0,0,0,0.5);
-    }
-
-    .header-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(59,130,246,0.12);
-      border: 1px solid rgba(59,130,246,0.3);
-      border-radius: 99px;
-      padding: 4px 12px;
-      font-size: 9.5px;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      z-index: 2;
-      position: relative;
-    }
-
-    header h1 {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--text);
-      line-height: 1.3;
-      z-index: 2;
-      position: relative;
-    }
-
-    header p {
-      font-size: 11.5px;
-      color: var(--text2);
-      margin-top: 6px;
-      font-weight: 400;
-      z-index: 2;
-      position: relative;
-    }
-
-    /* ══════════════════════════════════════
-       TRUST STRIP
-    ══════════════════════════════════════ */
-    .trust-strip {
-      display: flex;
-      margin: -18px 18px 0;
-      background: var(--card);
-      border: 1px solid var(--border2);
-      border-radius: 18px;
-      overflow: hidden;
-      position: relative;
-      z-index: 10;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-    }
-
-    .trust-item {
-      flex: 1;
-      padding: 16px 10px;
-      text-align: center;
-      position: relative;
-    }
-
-    .trust-item + .trust-item::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 20%; bottom: 20%;
-      width: 1px;
-      background: var(--border2);
-    }
-
-    .trust-icon {
-      font-size: 18px;
-      margin-bottom: 5px;
-      display: block;
-    }
-
-    .t-num {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text);
-      display: block;
-      font-family: 'Sora', sans-serif;
-    }
-
-    .t-label {
-      font-size: 9px;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      font-weight: 500;
-      display: block;
-      margin-top: 2px;
-    }
-
-    /* ══════════════════════════════════════
-       CONTENT
-    ══════════════════════════════════════ */
-    .content { padding: 28px 16px 10px; }
-
-    /* ══════════════════════════════════════
-       SECTION LABEL
-    ══════════════════════════════════════ */
-    .sec-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 30px 0 14px;
-    }
-
-    .sec-label .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 8px var(--gold);
-      flex-shrink: 0;
-    }
-
-    .sec-label span {
-      font-size: 10.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.8px;
-      color: var(--text2);
-    }
-
-    .sec-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ══════════════════════════════════════
-       GRID
-    ══════════════════════════════════════ */
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    /* ══════════════════════════════════════
-       SERVICE CARD
-    ══════════════════════════════════════ */
-    .svc {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px 10px 18px;
-      text-align: center;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .svc::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(59,130,246,0.08) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .svc:hover {
-      border-color: rgba(59,130,246,0.5);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.35), 0 0 0 1px rgba(59,130,246,0.2);
-    }
-
-    .svc:hover::after { opacity: 1; }
-    .svc:active { transform: scale(0.97); }
-
-    .svc-icon {
-      width: 48px; height: 48px;
-      border-radius: 14px;
-      background: rgba(59,130,246,0.1);
-      border: 1px solid rgba(59,130,246,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .svc:hover .svc-icon {
-      background: rgba(59,130,246,0.2);
-      border-color: rgba(59,130,246,0.45);
-    }
-
-    .svc-icon i {
-      font-size: 20px;
-      color: var(--accent);
-    }
-
-    .svc span {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.35;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Danger variant */
-    .svc.danger {
-      border-color: rgba(239,68,68,0.2);
-      background: rgba(239,68,68,0.04);
-    }
-
-    .svc.danger .svc-icon {
-      background: rgba(239,68,68,0.1);
-      border-color: rgba(239,68,68,0.25);
-    }
-
-    .svc.danger .svc-icon i { color: var(--red); }
-
-    .svc.danger:hover {
-      border-color: rgba(239,68,68,0.5);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.35), 0 0 0 1px rgba(239,68,68,0.2);
-    }
-
-    /* Gold / others variant */
-    .svc.gold-card {
-      border-color: rgba(245,158,11,0.2);
-      background: rgba(245,158,11,0.04);
-    }
-
-    .svc.gold-card .svc-icon {
-      background: rgba(245,158,11,0.1);
-      border-color: rgba(245,158,11,0.25);
-    }
-
-    .svc.gold-card .svc-icon i { color: var(--gold); }
-
-    .svc.gold-card:hover {
-      border-color: rgba(245,158,11,0.5);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.35), 0 0 0 1px rgba(245,158,11,0.2);
-    }
-
-    /* FREE badge */
-    .free-tag {
-      display: inline-block;
-      background: var(--green);
-      color: #fff;
-      font-size: 8.5px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 99px;
-      letter-spacing: 0.5px;
-    }
-
-    /* ══════════════════════════════════════
-       SUBMENU
-    ══════════════════════════════════════ */
-    .submenu {
-      display: none;
-      grid-column: span 2;
-      background: var(--card2);
-      border: 1px solid rgba(59,130,246,0.15);
-      border-radius: 16px;
-      padding: 12px;
-      margin-top: -4px;
-    }
-
-    .sub-btn {
-      width: 100%;
-      text-align: left;
-      padding: 12px 14px;
-      margin: 4px 0;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-size: 12.5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 500;
-      color: var(--text);
-      font-family: 'Sora', sans-serif;
-      transition: background 0.18s, border-color 0.18s, color 0.18s;
-    }
-
-    .sub-btn::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .sub-btn:hover {
-      background: rgba(59,130,246,0.12);
-      border-color: rgba(59,130,246,0.35);
-      color: #fff;
-    }
-
-    /* ══════════════════════════════════════
-       REVIEWS
-    ══════════════════════════════════════ */
-    .reviews-container { margin-top: 4px; }
-
-    .review-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 10px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-
-    .review-card:hover { border-color: var(--border2); }
-
-    .review-card::before {
-      content: '"';
-      position: absolute;
-      top: 2px; right: 12px;
-      font-size: 64px;
-      font-family: Georgia, serif;
-      color: rgba(59,130,246,0.08);
-      line-height: 1;
-      pointer-events: none;
-    }
-
-    .rev-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .rev-name {
-      font-weight: 700;
-      font-size: 12.5px;
-      color: var(--text);
-    }
-
-    .rev-stars { color: var(--gold); font-size: 10px; letter-spacing: 2px; }
-
-    .rev-text {
-      font-size: 11.5px;
-      color: var(--text2);
-      font-style: italic;
-      line-height: 1.6;
-    }
-
-    /* ══════════════════════════════════════
-       HELP BUTTON
-    ══════════════════════════════════════ */
-    .help-btn {
-      position: fixed;
-      bottom: 92px; right: 18px;
-      width: 54px; height: 54px;
-      border-radius: 50%;
-      background: var(--red);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 24px rgba(239,68,68,0.4), 0 0 0 4px rgba(239,68,68,0.12);
-      text-decoration: none;
-      z-index: 2000;
-      transition: transform 0.2s;
-    }
-
-    .help-btn:hover { transform: scale(1.1); }
-    .help-btn i { font-size: 20px; }
-    .help-btn span { font-size: 7px; font-weight: 700; margin-top: 2px; letter-spacing: 0.5px; }
-
-    /* ══════════════════════════════════════
-       CONTACT BAR
-    ══════════════════════════════════════ */
-    .contact-bar {
-      position: fixed;
-      bottom: 0;
-      width: 100%; max-width: 480px;
-      background: linear-gradient(135deg, #128C7E, #25D366);
-      color: #fff;
-      text-align: center;
-      padding: 18px 24px;
-      font-family: 'Sora', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-      cursor: pointer;
-      z-index: 1000;
-      box-shadow: 0 -4px 24px rgba(18,140,126,0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: background 0.2s;
-    }
-
-    .contact-bar:hover { background: linear-gradient(135deg, #0d6b60, #128C7E); }
-
-    /* ══════════════════════════════════════
-       MODAL
-    ══════════════════════════════════════ */
-    #customModal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(12px);
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-box {
-      background: var(--card);
-      width: 90%;
-      max-width: 370px;
-      border-radius: 28px;
-      padding: 28px;
-      text-align: center;
-      border: 1px solid var(--border2);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      animation: rise 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    @keyframes rise {
-      from { transform: translateY(40px) scale(0.96); opacity: 0; }
-      to   { transform: translateY(0) scale(1); opacity: 1; }
-    }
-
-    .m-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text2);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .price-display {
-      display: block;
-      font-size: 40px;
-      font-weight: 800;
-      color: var(--red);
-      letter-spacing: -2px;
-      margin: 6px 0;
-      font-family: 'Sora', sans-serif;
-    }
-
-    #mNote {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--green);
-      background: rgba(16,185,129,0.1);
-      border: 1px dashed rgba(16,185,129,0.35);
-      border-radius: 12px;
-      padding: 11px 14px;
-      text-align: left;
-      line-height: 1.55;
-      margin: 10px 0;
-    }
-
-    .refund-note {
-      font-size: 10px;
-      color: var(--text3);
-      border-top: 1px solid var(--border);
-      padding-top: 12px;
-      margin: 12px 0;
-      line-height: 1.6;
-    }
-
-    .btn-stack { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-
-    .btn-pay {
-      padding: 15px;
-      border: none;
-      background: linear-gradient(135deg, var(--accent2), var(--accent));
-      color: #fff;
-      border-radius: 16px;
-      font-family: 'Sora', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(59,130,246,0.3);
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-
-    .btn-pay:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 28px rgba(59,130,246,0.4);
-    }
-
-    .btn-cancel {
-      padding: 13px;
-      border: 1px solid var(--border2);
-      background: transparent;
-      color: var(--text2);
-      border-radius: 16px;
-      font-family: 'Sora', sans-serif;
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-cancel:hover { background: var(--card2); }
-
-    .btn-wa {
-      padding: 15px;
-      border: none;
-      background: linear-gradient(135deg, #128C7E, #25D366);
-      color: #fff;
-      border-radius: 16px;
-      font-family: 'Sora', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 6px 20px rgba(37,211,102,0.25);
-      transition: transform 0.15s;
-    }
-
-    .btn-wa:hover { transform: translateY(-1px); }
-
-    .qr-wrap {
-      width: 190px;
-      margin: 14px auto;
-      background: #fff;
-      padding: 10px;
-      border-radius: 18px;
-      box-shadow: 0 0 0 1px var(--border);
-    }
-
-    .qr-wrap img { width: 100%; border-radius: 10px; display: block; }
-
-    .upi-row {
-      font-size: 11.5px;
-      color: var(--text2);
-      margin-bottom: 10px;
-    }
-
-    .payment-note {
-      background: rgba(239,68,68,0.08);
-      border: 1px solid rgba(239,68,68,0.2);
-      border-radius: 12px;
-      padding: 12px;
-      font-size: 10.5px;
-      color: #fca5a5;
-      font-weight: 600;
-      line-height: 1.7;
-    }
-  </style>
-</head>
-<body>
-
-<a href="tel:7365996618" class="help-btn">
-  <i class="fas fa-headset"></i>
-  <span>HELP</span>
-</a>
-
-<!-- ══ MODAL ══ -->
-<div id="customModal">
-  <div class="modal-box">
-    <div id="step1">
-      <p class="m-title">Confirm Booking</p>
-      <span id="mPrice" class="price-display">₹0</span>
-      <p id="mNote"></p>
-      <p class="refund-note">* Refund Policy: If you cancel, <b style="color:var(--text)">95% will be refunded</b> within 24–48 hrs.</p>
-      <div class="btn-stack">
-        <button class="btn-pay" onclick="showQR()">PROCEED TO PAY</button>
-        <button class="btn-cancel" onclick="closeModal()">CANCEL</button>
-      </div>
-    </div>
-
-    <div id="step2" style="display:none;">
-      <p class="m-title">Scan & Pay</p>
-      <div class="qr-wrap">
-        <img src="https://i.ibb.co/fV4qL9YY/updated-qr.png" alt="QR Code">
-      </div>
-      <p class="upi-row">UPI: <b style="color:var(--text)">subir.das7365@okicici</b></p>
-      <div class="payment-note">
-        পেমেন্ট করার পর স্ক্রিনশটটি নিচে ক্লিক করে পাঠান<br>
-        भुगतान के बाद नीचे क्लिक करके स्क्रीनशॉट भेजें<br>
-        After payment, click below to send screenshot
-      </div>
-      <div class="btn-stack">
-        <button id="whatsappBtn" class="btn-wa">
-          <i class="fab fa-whatsapp"></i> SEND SCREENSHOT
-        </button>
-        <button class="btn-cancel" onclick="closeModal()">CLOSE</button>
-      </div>
-      <p style="font-size:9px; color:var(--text3); margin-top:10px;">* 95% refund on cancellation.</p>
-    </div>
-  </div>
+<!DOCTYPE html>  <html lang="en">    <head>      <meta charset="UTF-8">      
+<meta name="viewport" content="width=device-width, initial-scale=1.0">      
+<title>PF EXPERT CONSULTANCY</title>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">    <style>      
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: 0.3s; }      
+    body { background-color: #f0f2f5; margin: 0; padding: 0; display: flex; justify-content: center; }      .app-container {      
+    width: 100%; max-width: 480px; background: #fff; min-height: 100vh;      
+    box-shadow: 0 0 30px rgba(0,0,0,0.1); position: relative; padding-bottom: 80px;      
+}      
+
+header {      
+    background: linear-gradient(135deg, #004a87, #002d54); color: white;      
+    padding: 30px 20px; text-align: center; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;      
+}      
+
+.logo-img {      
+    width: 110px; height: 110px; border-radius: 20px; background: #fff;      
+    padding: 8px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);      
+    object-fit: contain;      
+}      
+
+header h1 { margin: 0; font-size: 18px; font-weight: 600; text-transform: uppercase; }      
+
+.trust-badges {      
+    display: flex; justify-content: space-around; padding: 20px 10px;      
+    background: #fff; margin: -20px 20px 10px; border-radius: 15px;      
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08); text-align: center;      
+}      
+.badge-item i { color: #ff9900; font-size: 20px; margin-bottom: 5px; }      
+.badge-item div { font-size: 14px; font-weight: 600; color: #004a87; }      
+.badge-item span { font-size: 10px; color: #777; }      
+
+.reviews-container { padding: 0 15px; margin-top: 10px; padding-bottom: 20px; }      
+.review-card {      
+    background: #fdfdfd; border: 1px solid #eee; padding: 15px;      
+    border-radius: 15px; margin-bottom: 12px;      
+}      
+.rev-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }      
+.rev-name { font-weight: 600; font-size: 13px; color: #333; }      
+.rev-stars { color: #ffcc00; font-size: 10px; }      
+.rev-text { font-size: 11.5px; color: #555; font-style: italic; line-height: 1.4; }      
+
+.content { padding: 15px; }      
+
+.section-header {      
+    font-weight: 600; color: #004a87; margin: 25px 0 12px; font-size: 14px;      
+    text-transform: uppercase; border-left: 5px solid #ff9900; padding-left: 12px;      
+}      
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }      
+
+.service-item {      
+    background: #fff; border: 1px solid #e0e0e0; padding: 22px 8px;      
+    border-radius: 18px; text-align: center; cursor: pointer;      
+    display: flex; flex-direction: column; align-items: center; justify-content: center;      
+}      
+
+.service-item:hover { border-color: #25D366; background: #f9fffb; transform: translateY(-3px); }      
+
+.service-item i { font-size: 28px; color: #004a87; margin-bottom: 10px; }      
+.service-item span { font-size: 13px; font-weight: 600; color: #333; line-height: 1.2; }      
+
+.submenu {      
+    display: none; grid-column: span 2; background: #f8f9fa;      
+    padding: 12px; border-radius: 15px; border: 1px solid #ddd; margin-top: -5px;      
+}      
+.sub-btn {      
+    width: 100%; text-align: left; padding: 12px; margin: 5px 0;      
+    background: #fff; border: 1px solid #eee; border-radius: 10px; font-size: 13px;      
+    cursor: pointer; display: block; font-weight: 500;      
+}      
+
+.help-center {      
+    position: fixed; bottom: 90px; right: 20px; background: #d32f2f;      
+    color: white; width: 55px; height: 55px; border-radius: 50%;      
+    display: flex; align-items: center; justify-content: center;      
+    box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4); cursor: pointer;      
+    z-index: 2000; flex-direction: column; text-decoration: none;      
+}      
+.help-center i { font-size: 22px; }      
+.help-center span { font-size: 8px; font-weight: 600; margin-top: 2px; }      
+
+#customModal {      
+    display: none; position: fixed; z-index: 9999; left: 0; top: 0;       
+    width: 100%; height: 100%; background: rgba(0,0,0,0.85);       
+    align-items: center; justify-content: center; backdrop-filter: blur(8px);      
+}      
+.modal-content {      
+    background: #fff; width: 90%; max-width: 380px; border-radius: 28px;       
+    padding: 25px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.4);      
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);      
+}      
+      
+.price-display { color: #d32f2f; font-size: 32px; font-weight: bold; margin: 10px 0; display: block; }      
+.btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }      
+.btn-cancel { padding: 12px; border: none; background: #f1f1f1; color: #555; border-radius: 16px; font-weight: 600; cursor: pointer; }      
+.btn-confirm { padding: 14px; border: none; background: #004a87; color: #fff; border-radius: 16px; font-weight: 600; cursor: pointer; }      
+.btn-whatsapp { background: #25D366; color: white; border: none; padding: 14px; border-radius: 16px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }      
+
+.qr-box { width: 220px; margin: 15px auto; border: 2px solid #eee; border-radius: 15px; padding: 10px; background: #fff; }      
+.qr-box img { width: 100%; border-radius: 8px; display: block; }      
+      
+.refund-policy-text { font-size: 10px; color: #777; margin: 15px 0; line-height: 1.4; border-top: 1px solid #eee; padding-top: 10px; }      
+
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }      
+
+.contact-bar {      
+    background: #25D366; color: white; text-align: center; padding: 15px;      
+    font-size: 16px; font-weight: 600; position: fixed; bottom: 0; width: 100%; max-width: 480px;      
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1); cursor: pointer; z-index: 1000;      
+}
+
+</style>  </head>
+
+<body>  <a href="tel:7365996618" class="help-center">      
+    <i class="fas fa-headset"></i>      
+    <span>HELP</span>      
+</a>  <div id="customModal">      
+    <div class="modal-content">      
+        <div id="step1">      
+            <h4 style="margin:0 0 10px; font-size:16px; color:#004a87;">Confirm Booking</h4>      
+            <span id="mPrice" class="price-display">₹0</span>      
+            <p id="mNote" style="color:#28a745; font-size:11px; font-weight:600; margin:10px 0; padding: 10px; background: #f0fff4; border-radius: 12px; border: 1px dashed #25D366; text-align: left; line-height: 1.4;"></p>  <p class="refund-policy-text">      
+            * Refund Policy: If you want to cancel the service, <b>95% of your amount will be returned</b> within 24-48 hours.      
+        </p>    <div class="btn-container">      
+        <button class="btn-confirm" onclick="showQR()">PROCEED TO PAY</button>      
+        <button class="btn-cancel" onclick="closeModal()">CANCEL</button>      
+    </div>      
+</div>      <div id="step2" style="display:none;">      
+    <h4 style="margin:0; font-size:16px; color:#004a87;">Scan & Pay</h4>      
+    <div class="qr-box">      
+        <img src="https://i.ibb.co/fV4qL9YY/updated-qr.png" alt="Payment QR">      
+    </div>      
+    <p style="font-size: 12px; color: #333; margin-bottom: 5px;">UPI ID: <b>subir.das7365@okicici</b></p>      <div style="font-size: 11px; color: #d32f2f; background: #fff8f8; padding: 10px; border-radius: 12px; border: 1px solid #ffebeb; line-height: 1.5; font-weight: 600;">      
+    পেমেন্ট করার পর স্ক্রিনশটটি নিচে ক্লিক করে পাঠান<br>      
+    भुगतान करने के बाद नीचे क्लिक करके उसका स्क्रीनशॉट भेजें<br>      
+    After payment, click below to send the screenshot      
+</div>      
+      
+<div class="btn-container">      
+    <button id="whatsappBtn" class="btn-whatsapp">      
+        <i class="fab fa-whatsapp"></i> SEND SCREENSHOT      
+    </button>      
+    <button class="btn-cancel" onclick="closeModal()">CLOSE</button>      
+</div>      
+<p style="font-size: 9px; color: #bbb; margin-top: 10px;">* 95% return policy applies on cancellation.</p>
+
+</div>  </div>  </div>  <div class="app-container">      
+    <header>      
+        <img src="https://i.ibb.co/Bv93qMP/1000044934.png" alt="PF Logo" class="logo-img">       
+        <h1>PF EXPERT CONSULTANCY</h1>      
+        <p style="font-size: 11px; opacity: 0.8;">Expert Help for Your PF Problems</p>      
+    </header>  <div class="trust-badges">      
+    <div class="badge-item">      
+        <i class="fas fa-check-circle"></i>      
+        <div>2700+</div>      
+        <span>Work Success</span>      
+    </div>      
+    <div class="badge-item">      
+        <i class="fas fa-star"></i>      
+        <div>4.7/5</div>      
+        <span>Trust Rating</span>      
+    </div>      
+    <div class="badge-item">      
+        <i class="fas fa-user-shield"></i>      
+        <div>Verified</div>      
+        <span>Consultant</span>      
+    </div>      
+</div>    <div class="content">      
+    <div class="section-header">KYC & Linking</div>      
+    <div class="grid">      
+        <div class="service-item" onclick="openModal('Aadhar Linking', 500, 'Total Charge ₹18,000. 100% Guaranteed Success.')"><i class="fas fa-id-card"></i><span>Aadhar Linking</span></div>      
+        <div class="service-item" onclick="openModal('Mobile Number Link', 150)"><i class="fas fa-mobile-alt"></i><span>Mobile Link</span></div>      
+        <div class="service-item" onclick="openModal('PAN Card Link', 400)"><i class="fas fa-credit-card"></i><span>PAN Card Link</span></div>      
+        <div class="service-item" onclick="openModal('Bank KYC Update', 500)"><i class="fas fa-university"></i><span>Bank KYC Update</span></div>      
+    </div>    <div class="section-header">Withdrawal & Transfer</div>      
+<div class="grid">      
+    <div class="service-item" onclick="openModal('Full PF Settlement', 150, 'Final Charge: ₹300 per ₹10,000 after work.')" style="grid-column: span 2;">      
+        <i class="fas fa-coins"></i><span>Full Settlement / Advance Withdrawal</span>      
+    </div>      
+    <div class="service-item" onclick="openModal('PF Transfer', 200)" style="grid-column: span 2;">      
+        <i class="fas fa-exchange-alt"></i><span>PF Transfer to New Account</span>      
+    </div>      
+</div>      <div class="section-header">UAN Services</div>      
+<div class="grid">      
+    <div class="service-item" onclick="openModal('Blocked UAN Recovery', 500, 'Total Charge ₹18,000. Guaranteed Unblock Solution.')" style="grid-column: span 2; border: 1px solid #d32f2f;">      
+        <i class="fas fa-user-lock" style="color: #d32f2f;"></i><span>UAN Blocked / Disabled Help</span>      
+    </div>      
+    <div class="service-item" onclick="toggleSubmenu('uanSub')"><i class="fas fa-key"></i><span>UAN Technical Help <i class="fas fa-caret-down"></i></span></div>      
+    <div id="uanSub" class="submenu">      
+        <button class="sub-btn" onclick="openModal('Know Your UAN', 150)">● Know Your UAN</button>      
+        <button class="sub-btn" onclick="openModal('Password Reset', 150)">● Password Reset</button>      
+        <button class="sub-btn" onclick="openModal('UAN Activation', 150)">● UAN Activation</button>      
+    </div>      
+</div>      <div class="section-header">Special Services</div>      
+<div class="grid">      
+    <div class="service-item" onclick="openModal('E-Nomination Filing', 250)"><i class="fas fa-users"></i><span>E-Nomination</span></div>      
+    <div class="service-item" onclick="openModal('Balance Check', 50)"><i class="fas fa-file-invoice-dollar"></i><span>Balance Check</span></div>      
+    <div class="service-item" onclick="openModal('Death Claim (EDLI)', 150, 'Professional Help for EDLI Claims.')"><i class="fas fa-heart-broken"></i><span>Death Claim (EDLI)</span></div>      
+    <div class="service-item" onclick="openModal('Grievance Filing', 100)"><i class="fas fa-exclamation-circle"></i><span>Grievance Filing</span></div>      
+    <div class="service-item" onclick="openModal('Closed Company Help', 50, 'Expert guidance for Closed Companies.')"><i class="fas fa-building-slash"></i><span>Closed Company Help</span></div>      
+    <div class="service-item" onclick="sendWhatsApp('Save TDS (15G)')"><i class="fas fa-percent"></i><span>Save TDS (15G) <br><small style="color:green">FREE</small></span></div>      <div class="service-item" onclick="openModal('Others / Any Other Problem', 100, 'Tell details after payment for other problems.')" style="grid-column: span 2; background: #fffcf0; border: 1px solid #ffcc00; margin-top: 12px;">      
+    <i class="fas fa-ellipsis-h" style="color: #ff9900;"></i>      
+    <span>Others / Any Other Problem</span>      
 </div>
 
-<!-- ══ APP ══ -->
-<div class="app">
+</div>      <div class="section-header">Customer Reviews</div>      
+<div class="reviews-container">      
+    <div class="review-card">      
+        <div class="rev-top"><span class="rev-name">Animesh Das</span><span class="rev-stars">★★★★★</span></div>      
+        <div class="rev-text">"My UAN was disabled for months. Subir Sir solved it very quickly. Truly professional and reliable service!"</div>      
+    </div>      
+    <div class="review-card">      
+        <div class="rev-top"><span class="rev-name">Rajesh Kumar</span><span class="rev-stars">★★★★★</span></div>      
+        <div class="rev-text">"Excellent service. My PF transfer was stuck for a long time, but they cleared it within few days. Highly recommended."</div>      
+    </div>      
+    <div class="review-card">      
+        <div class="rev-top"><span class="rev-name">Suman Mondal</span><span class="rev-stars">★★★★★</span></div>      
+        <div class="rev-text">"Very helpful team. They guided me through the entire Aadhar linking process. Great experience overall."</div>      
+    </div>      
+    <div class="review-card">      
+        <div class="rev-top"><span class="rev-name">Priya Sharma</span><span class="rev-stars">★★★★★</span></div>      
+        <div class="rev-text">"I was worried about my PF withdrawal, but they made it so easy. Fast processing and clear communication."</div>      
+    </div>      
+    <div class="review-card">      
+        <div class="rev-top"><span class="rev-name">Tapan Ghosh</span><span class="rev-stars">★★★★★</span></div>      
+        <div class="rev-text">"My company was closed and I couldn't get my money. Thanks to PF Expert Consultancy, I got my full settlement."</div>      
+    </div>      
+    <div class="review-card">      
+        <div class="rev-top"><span class="rev-name">Vikram Singh</span><span class="rev-stars">★★★★★</span></div>      
+        <div class="rev-text">"Genuine work and great support. The 95% refund policy shows how much they care about customer trust."</div>      
+    </div>      
+    <div class="review-card">      
+        <div class="rev-top"><span class="rev-name">Amit Roy</span><span class="rev-stars">★★★★★</span></div>      
+        <div class="rev-text">"Quick response and guaranteed work. They updated my E-nomination and KYC in no time. Best in the business!"</div>      
+    </div>      
+</div>  </div>    <div class="contact-bar" onclick="window.open('https://wa.me/919775515990', '_blank')">      
+    <i class="fab fa-whatsapp"></i> CONTACT ON WHATSAPP      
+</div>  </div>  <script>      
+    const bizWhatsApp = "917365996618";      
+    let currentService = "";      
+    let currentAmount = "";    function toggleSubmenu(id) {      
+    const sub = document.getElementById(id);      
+    const all = document.querySelectorAll('.submenu');      
+    all.forEach(s => { if(s.id !== id) s.style.display = 'none'; });      
+    sub.style.display = (sub.style.display === "grid") ? "none" : "grid";      
+}      function openModal(name, amount, note = "") {
+currentService = name;
+currentAmount = amount;
+document.getElementById('mPrice').innerText = ₹${amount};
+document.getElementById('mNote').innerHTML = note;
+document.getElementById('step1').style.display = 'block';
+document.getElementById('step2').style.display = 'none';
+document.getElementById('customModal').style.display = 'flex';
+}
 
-  <!-- HEADER -->
-  <header>
-    <div class="header-badge"><i class="fas fa-circle" style="font-size:5px; color:var(--green);"></i> TRUSTED SERVICE</div>
-    <div class="logo-wrap">
-      <div class="logo-glow"></div>
-      <img src="https://i.ibb.co/Bv93qMP/1000044934.png" alt="PF Logo" class="logo-img">
-    </div>
-    <h1>PF Expert Consultancy</h1>
-    <p>Professional Help for Your PF Problems</p>
-    <div class="header-line"></div>
-  </header>
+function showQR() {
+document.getElementById('step1').style.display = 'none';
+document.getElementById('step2').style.display = 'block';
 
-  <!-- TRUST STRIP -->
-  <div class="trust-strip">
-    <div class="trust-item">
-      <span class="trust-icon" style="color:var(--gold);">✦</span>
-      <span class="t-num">2700+</span>
-      <span class="t-label">Cases Solved</span>
-    </div>
-    <div class="trust-item">
-      <span class="trust-icon" style="color:var(--accent);">★</span>
-      <span class="t-num">4.7/5</span>
-      <span class="t-label">Rating</span>
-    </div>
-    <div class="trust-item">
-      <span class="trust-icon" style="color:var(--green);">✔</span>
-      <span class="t-num">Verified</span>
-      <span class="t-label">Consultant</span>
-    </div>
-  </div>
+document.getElementById('whatsappBtn').onclick = function() {      
+    const text = `✅ *NEW PAYMENT CONFIRMED*\n\n*Service:* ${currentService}\n*Amount Paid:* ₹${currentAmount}\n\nHello Subir Sir, I have paid the amount for this service. Here is the screenshot. Please check.`;      
+    window.location.href = `https://wa.me/${bizWhatsApp}?text=${encodeURIComponent(text)}`;      
+};
 
-  <!-- CONTENT -->
-  <div class="content">
+}
 
-    <!-- KYC -->
-    <div class="sec-label"><div class="dot"></div><span>KYC &amp; Linking</span></div>
-    <div class="grid">
-      <div class="svc" onclick="openModal('Aadhar Linking', 500, 'Total Charge ₹18,000. 100% Guaranteed Success.')">
-        <div class="svc-icon"><i class="fas fa-id-card"></i></div>
-     
+function closeModal() { document.getElementById('customModal').style.display = 'none'; }
+
+function sendWhatsApp(service) {
+window.open(https://wa.me/${bizWhatsApp}?text=${encodeURIComponent('Hello! I need help for: ' + service)}, '_blank');
+}
+
+</script>  </body>
+
+</html>    
